@@ -1,22 +1,47 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
+<head>
     <meta charset="UTF-8" />
-    <title>Estudiantes</title>
+    <title>Estudiantes y Saludo</title>
     <link rel="stylesheet" href="styles_modern.css" />
-  </head>
-  <body>
+    <style>
+        /* Estilos adicionales para la nueva sección */
+        .greet-section {
+            margin: 2rem 0;
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            max-width: 400px;
+        }
+        #greetResult {
+            margin-top: 1rem;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+    </style>
+</head>
+<body>
     <h1>Lista de Estudiantes</h1>
     <button id="loadButton">Cargar Estudiantes</button>
     <table id="studentsTable">
-      <thead>
-        <tr>
-          <th>Id</th>
-          <th>Nombre</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
     </table>
+
+    <!-- Nueva sección para el saludo -->
+    <div class="greet-section">
+        <h2>Saludo Personalizado</h2>
+        <input type="text" id="nombre" placeholder="Escribe tu nombre">
+        <button id="btnSaludar">Saludarme</button>
+        <div id="greetResult"></div>
+    </div>
+
     <script src="script.js"></script>
-  </body>
+    
+</body>
 </html>
