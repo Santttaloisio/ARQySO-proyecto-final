@@ -8,10 +8,5 @@ document.getElementById("loadButton").addEventListener("click", async () => {
     row.innerHTML = `<td>${student.id}</td><td>${student.name}</td>`;
     tbody.appendChild(row);
   });
-  // RUTA DEBER 01 
-  app.get ("/api/greet", (req, res) => {
-    const name = req.query.name || "John";
-    res.json({message: "Hola, ${name}!"});
-  });
 });
 
