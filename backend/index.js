@@ -1,15 +1,13 @@
 const express = require("express");
 const db = require("./db");
-const cors = require("cors"); // Añade esto
+
 
 // Define express app
 const app = express();
-const port = 3000;
+const port = 4000;
 
 // Middleware
-app.use(cors()); // Habilita CORS
 app.use(express.json());
-
 // Routes
 app.get("/api/ping", (req, res) => res.json({ message: "pong" }));
 
