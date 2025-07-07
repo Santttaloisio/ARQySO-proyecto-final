@@ -9,7 +9,45 @@ document.getElementById("loadButton").addEventListener("click", async () => {
     tbody.appendChild(row);
   });
 });
-<<<<<<< HEAD
-=======
 
->>>>>>> 1428cdb3dd2caf1b0934f9366ad89182082fcee8
+document.addEventListener('DOMContentLoaded', function() {
+    const greetButton = document.getElementById('greetButton');
+    const nameInput = document.getElementById('nameInput');
+    const resultDiv = document.getElementById('greetResult');
+
+    greetButton.addEventListener('click', greetUser);
+    
+    nameInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            greetUser();
+        }
+    });
+
+    async function greetUser() {
+        const name = nameInput.value.trim();
+        
+        if (!name) {
+            showResult("Por favor, ingresa tu nombre", true);
+            return;
+        }
+
+        try {
+            const response = await fetch(`/api/greet?name=${encodeURIComponent(name)}`);
+            
+            if (!response.ok) {
+                throw new Error(`Error del servidor: ${response.status}`);
+            }
+            
+            const data = await response.json(); 
+            showResult(data.message, false); 
+        } catch (error) {
+            showResult(`Error al obtener el saludo: ${error.message}`, true);
+        }
+    }
+
+    function showResult(message, isError) {
+        resultDiv.textContent = message;
+        resultDiv.style.display = "block";
+        resultDiv.className = isError ? "greet-error" : "greet-success";
+    }
+});

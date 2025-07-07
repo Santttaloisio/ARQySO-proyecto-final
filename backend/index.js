@@ -1,15 +1,18 @@
 const express = require("express");
 const db = require("./db");
+const cors = require("cors"); // Añade esto
 
 // Define express app
 const app = express();
 const port = 3000;
 
-// Middleware to parse JSON requests
+// Middleware
+app.use(cors()); // Habilita CORS
 app.use(express.json());
 
 // Routes
 app.get("/api/ping", (req, res) => res.json({ message: "pong" }));
+
 app.get("/api/students", async (req, res) => {
   try {
     const result = await db.query("SELECT * FROM students");
@@ -18,18 +21,15 @@ app.get("/api/students", async (req, res) => {
     console.error(err);
     res.status(500).send("DB error");
   }
-  app.get("/api/greet", (req, res) => {
-  const name = req.query.name || "John";
-  res.json({ message: `Hola, ${name}!` });
 });
-});
-<<<<<<< HEAD
-=======
-// RUTA DEBER 01 
-  app.get ("/api/greet", (req, res) => {
-    const name = req.query.name || "John";
-    res.json({message: "Hola, ${name}!"});
+
+app.get("/api/greet", (req, res) => {
+  const name = req.query.name || "Invitado";
+  res.json({ 
+    message: `¡Hola, ${name}! Bienvenido al sistema de estudiantes.`,
+    timestamp: new Date().toISOString() 
   });
->>>>>>> 1428cdb3dd2caf1b0934f9366ad89182082fcee8
+});
+
 // Start the server
 app.listen(port, () => console.log(`App running on port ${port}`));
