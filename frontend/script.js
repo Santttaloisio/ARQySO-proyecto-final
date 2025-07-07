@@ -9,3 +9,7 @@ document.getElementById("loadButton").addEventListener("click", async () => {
     tbody.appendChild(row);
   });
 });
+<<<<<<< HEAD
+=======
+
+>>>>>>> 1428cdb3dd2caf1b0934f9366ad89182082fcee8
