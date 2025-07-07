@@ -18,12 +18,10 @@ app.get("/api/students", async (req, res) => {
     console.error(err);
     res.status(500).send("DB error");
   }
+  app.get("/api/greet", (req, res) => {
+  const name = req.query.name || "John";
+  res.json({ message: `Hola, ${name}!` });
 });
-// RUTA DEBER 01 
-  app.get ("/api/greet", (req, res) => {
-    const name = req.query.name || "John";
-    res.json({message: "Hola, ${name}!"});
-  });
-
+});
 // Start the server
 app.listen(port, () => console.log(`App running on port ${port}`));
