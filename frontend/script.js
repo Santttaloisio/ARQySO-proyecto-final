@@ -50,4 +50,47 @@ document.addEventListener('DOMContentLoaded', function() {
         resultDiv.style.display = "block";
         resultDiv.className = isError ? "greet-error" : "greet-success";
     }
-});z
+});
+
+document.getElementById("addStudentButton").addEventListener("click", addNewStudent);
+
+async function addNewStudent() {
+  const nameInput = document.getElementById("newStudentName");
+  const name = nameInput.value.trim();
+  const resultDiv = document.getElementById("addStudentResult");
+
+  if (!name) {
+    showAddResult("Por favor, ingresa un nombre", true);
+    return;
+  }
+
+  try {
+    const response = await fetch("/api/students", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ name }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error del servidor: ${response.status}`);
+    }
+
+    const newStudent = await response.json();
+    showAddResult(`Estudiante "${newStudent.name}" agregado con ID: ${newStudent.id}`, false);
+    
+    nameInput.value = "";
+    
+    document.getElementById("loadButton").click();
+  } catch (error) {
+    showAddResult(`Error al agregar estudiante: ${error.message}`, true);
+  }
+}
+
+function showAddResult(message, isError) {
+  const resultDiv = document.getElementById("addStudentResult");
+  resultDiv.textContent = message;
+  resultDiv.style.display = "block";
+  resultDiv.className = isError ? "add-error" : "add-success";
+}

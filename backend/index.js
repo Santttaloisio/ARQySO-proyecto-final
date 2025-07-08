@@ -22,11 +22,30 @@ app.get("/api/students", async (req, res) => {
 });
 
 app.get("/api/greet", (req, res) => {
-  const name = req.query.name || "Invitado";
+  const name = req.query.name || "John";
   res.json({ 
-    message: `¡Hola, ${name}! Bienvenido al sistema de estudiantes.`,
-    timestamp: new Date().toISOString() 
+    message: `¡Hola, ${name}!.`,
   });
+});
+
+app.post("/api/students", async (req, res) => {
+  try {
+    const { name } = req.body;
+    
+    if (!name) {
+      return res.status(400).json({ error: "El nombre es requerido" });
+    }
+
+    const result = await db.query(
+      "INSERT INTO students (name) VALUES ($1) RETURNING id, name",
+      [name]
+    );
+    
+    res.status(201).json(result.rows[0]);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Error al crear estudiante");
+  }
 });
 
 // Start the server
