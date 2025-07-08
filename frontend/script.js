@@ -50,4 +50,4 @@ document.addEventListener('DOMContentLoaded', function() {
         resultDiv.style.display = "block";
         resultDiv.className = isError ? "greet-error" : "greet-success";
     }
-});
+});z
